@@ -1,0 +1,16 @@
+.btn-nacimiento, .btn-contraseña, .btn-telefono, .btn-añadir-deseo, .btn-añadir-direccion, .btn-comprar-de-nuevo, .btn-buscar-pedido{
+    background-color: rgb(132, 165, 222);
+}
+
+.form-nick, .form-fecha, .form-contraseña, .form-telefono, .datos-cuenta, .datos-pedidos, .card, .pedido, .direccion{
+    background-color: burlywood;
+    border-radius: 2%;
+}
+
+a{
+    color: black;
+}
+
+.panel-usuario{
+    margin-top: 40px;
+}

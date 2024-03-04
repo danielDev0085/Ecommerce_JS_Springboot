@@ -1,0 +1,9 @@
+/* modal para registrarse */
+#modal-registro {
+    font-weight: 600;
+}
+
+/* opacidad para botón de registrarse, cuando mouse pasa por encima*/
+#modal-registro .btn-registro:hover{
+    opacity: .9;
+}

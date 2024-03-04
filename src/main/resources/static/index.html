@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyecto tienda</title>
+    <script src="./bootstrap/js/bootstrap.bundle.min.js" defer></script>
+    <script src="./js/index.js" defer></script>
+    <script src="./js/login.js" defer></script>
+    <script src="./js/registro.js" defer></script>
+    <script src="./js/verProductos.js" defer></script>
+    <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="css/registro.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,500;1,500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,500;1,500&display=swap" rel="stylesheet">
+</head>
+<body class="container-fluid position-absolute">
+    <!--CABECERA-->
+    <header class="row col-12 position-fixed">
+        <!--Cabecera principal, título, login...-->
+        <div class="d-flex align-items-center justify-content-between" id="cabecera-principal">
+            <!-- Inicio -->
+            <div class="col-4 ms-2">
+                <a href="./index.html" style="text-decoration:none;"><h5>Inicio</h5></a>
+            </div>
+            <!--Título-->
+            <div class="col-4 d-flex justify-content-end">
+                <h1 id="titulo-principal"><b>techno</b> store</h1>
+                <img id="logo-cabecera" src="img/logo-2.png" alt="">
+            </div>
+
+            <div class="col-6 col-md-4 col-sm-2">
+                <nav>
+                    <ul class="nav justify-content-end">
+                    <li><a href="#" onclick="obtenerCookieLogin()" class="nav-link" data-bs-toggle="modal" data-bs-target="#modal-login">Login</a></li>
+                        <!--<?php
+                            session_start();
+                            if (isset($_SESSION['dniUsuario'])) { // si existe sesion con dni, entonces estamos logueados
+                                $dni = $_SESSION['dniUsuario'];
+                                $usuario = $_SESSION['usuario'];
+                                echo '<div class="dropdown"><a 
+                                            href="#" 
+                                            id="usuario-logueado" 
+                                            class="btn btn-outline-dark dropdown-toggle"
+                                            type="button"
+                                            data-bs-toggle="dropdown"
+                                            aria-expanded="false"
+                                            >'.$usuario.'</a>
+                                            <ul class="dropdown-menu" aria-labelledby="usuario-logueado">
+                                                <li><a href="./panelUsuario.php" style="color:black" class="dropdown-item text-center">Mi cuenta</a></li>
+                                                <li><a href="#" style="color:black" class="dropdown-item text-center">Ver pedidos</a></li>
+                                                <li><a href="./controlador/logout.php" style="color:black" class="dropdown-item text-center">Cerrar sesión</a></li>
+                                            </ul></div>';
+                            }
+                            else { // si no hay login mostramos enlace de login
+                                echo '<li><a href="#" onclick="obtenerCookieLogin()" class="nav-link" data-bs-toggle="modal" data-bs-target="#modal-login">Login</a></li>';
+                            }
+                        ?>-->
+                    </ul>
+                </nav>
+            </div>
+            
+        </div>
+        <!--Cabecera secundaria donde se muestran categorías de productos-->
+        <div class="row align-items-center" id="cabecera-secundaria">
+            <div class="col-12 text-center col-md-2" id="div-categorias-principal">
+                <div class="accordion accordion-flush" id="menu">
+                    <div class="accordion-item">
+                        <div class="accordion-header" id="header-categorias">
+                            <a 
+                            type="button"
+                            data-bs-toggle="collapse"
+                                data-bs-target="#categorias"
+                                aria-expanded="true"
+                                aria-controles="categorias"
+                                id="btn-categorias"
+                            >
+                                ☰
+                            </a>
+                            <span>Categorías</span>
+                        </div>
+    
+                        <div
+                        id="categorias"
+                        class="accordion-collapse collapse"
+                        data-bs-parent="#menu"
+                        >
+                            <div class="accordion-body">
+                                <ul id="lista-categorias">
+                                    <!-- codigo javascript -->
+                                </ul>
+                            </div>
+                        </div>
+    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <!--CUERPO-->
+    <main>
+        <!-- Modal login-->
+        <div class="modal fade" id="modal-login" tabindex="-1" role="dialog" data-bs-backdrop="static" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="container contenedor-login">
+                        <div class="row d-flex justify-content-center mt-4">
+                            <div class="col">
+                                <div class=" d-flex align-items-center">
+                                    <div class="card-body my-3 ">
+                                        <div class="btn-cerrar d-flex justify-content-end">
+                                            <button class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                                        </div>
+                
+                                        <div class="card-tittle d-flex justify-content-center text-align-center">
+                                            <h4 class="d-block">Introduzca los datos de usuario</h4>
+                                        </div>
+                                        
+                                        <form id="loginForm">
+                                            
+                                            <label for="usuarioLogin" class="d-block my-3">Usuario:
+                                                <input type="text" name="usuarioLogin" id="usuarioLogin" class="form-control w-100">
+                                            </label>
+                    
+                                            <label for="contraseñaLogin" class="d-block my-3">Contraseña:
+                                                <input type="password" name="contraseñaLogin" id="contraseñaLogin" class="w-100 form-control">
+                                            </label>
+    
+                                            <div id="divErrorLogin" class="invalid-feedback"></div>
+                    
+                                            <label for="recuerdame">
+                                                <input type="checkbox" name="recuerdame" id="recuerdame">
+                                            Recuérdame</label>
+                    
+                                            <button type="submit" class="btn-login btn btn-dark w-100 my-4" id="btnLogin" name="btn-login">LOGIN</button>
+                    
+                                            <div class="enlaces-redes text-center mb-4">
+                                                <a class="btn-facebook opacidad btn" href="">Facebook</a>
+                                                <a class="btn-twitter opacidad btn" href="">Twitter</a>
+                                                <a class="btn-google opacidad btn" href="">Google</a>
+                                            </div>
+                
+                                        </form>
+                                        <div class="card-footer text-center">
+                                            <a href="./controlador/contacto.php" style="color: black">Olvidé mi contraseña</a>
+                                            <a href="#" data-bs-toggle="modal" data-bs-target="#modal-registro" style="color: black" onclick="inputsVacios()">Registrarse</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <!-- Modal registro -->
+        <div class="modal fade" id="modal-registro" tabindex="-1" role="dialog"  data-bs-backdrop="static" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content" style="width: 800px;">
+                    <div class="container-fluid">
+                        <div class="row justify-content-center">
+                            <div class="col-12">
+                                <div class="modal-header d-flex justify-content-end">
+                                    <div class="btn-cerrar">
+                                        <button class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                                    </div>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="d-flex justify-content-center align-items-center">
+                                        <h4>Registro de usuario</h4>
+                                    </div>
+                                    <form id="formRegistro">
+                                        <div class="row row d-flex justify-content-center align-items-center">
+                                            <label class="col-4 my-3" for="dni">DNI/CIF *
+                                                <input class="d-block" type="text" name="dni" id="dni" placeholder="12345678A">
+                                                <div class="invalid-feedback" id="errorRegistroDni"></div>
+                                            </label>
+                                        </div>
+    
+                                        <div class="row d-flex justify-content-center align-items-center">
+                                            <label class="my-3 col-4" for="nombre">Nombre *
+                                                <input class="d-block" type="text" name="nombre" id="nombre" placeholder="Manuel">
+                                                <div class="invalid-feedback" id="errorRegistroNombre"></div>
+                                            </label>
+    
+                                            <label class="my-3 col-4" for="apellidos">Apellidos *
+                                                <input class="d-block" type="text" name="apellidos" id="apellidos" placeholder="García García">
+                                                <div class="invalid-feedback" id="errorRegistroApellidos"></div>
+                                            </label>
+                                        </div>
+    
+                                        <div class="row row d-flex justify-content-center align-items-center">
+                                            <label class="my-3 col-4" for="telefono">Teléfono
+                                                <input class="d-block" type="number" name="telefono" id="telefono" placeholder="666777888">
+                                                <div class="invalid-feedback" id="errorRegistroTelefono"></div>
+                                            </label>
+    
+                                            <label class="my-3 col-4" for="correo">Correo electrónico *
+                                                <input class="d-block w-100" type="text" name="correo" id="correo" placeholder="nombre@dominio.extension">
+                                                <div class="invalid-feedback" id="errorRegistroCorreo"></div>
+                                            </label>
+                                        </div>
+    
+                                        <div class="row row d-flex justify-content-center align-items-center">
+                                            <label class="my-3 col-4" for="usuarioRegistro">Usuario *
+                                                <input class="d-block" type="text" name="usuarioRegistro" id="usuarioRegistro" placeholder="Nick o usuario">
+                                                <div class="invalid-feedback" id="errorRegistroUsuario"></div>
+                                            </label>
+    
+                                            <label class="my-3 col-4" for="contraseña1">Contraseña *
+                                                <input class="d-block" type="password" name="contraseña1" id="contraseña1" placeholder="Contraseña">
+                                                <div class="invalid-feedback" id="errorRegistroContraseña1"></div>
+                                            </label>
+    
+                                            <label class="my-3 col-4" for="contraseña2">Repita contraseña *
+                                                <input class="d-block" type="password" name="contraseña2" id="contraseña2" placeholder="Repite la contraseña">
+                                                <div class="invalid-feedback" id="errorRegistroContraseña2"></div>
+                                            </label>
+                                        </div>
+    
+                                        <div id="divErrorRegistro" class="invalid-feedback d-block">* Campos obligatorios</div>
+    
+                                        <div class="row mt-4 justify-content-center">
+                                            <button class="btn btn-registro col-2 bg-success text-white" name="btn-registro" id="btnRegistro" type="submit">Registrarse</button>
+                                        </div>
+                                        <div class="text-center text-danger d-block my-3">
+                                            <p id="infoRegistro"></p>
+                                        </div>
+                                    </form>
+                                </div>    
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- seccion mostrar productos -->
+        <section id="mostrarProductos" class="d-none">
+            <!-- genear mediante javascript -->
+        </section>
+
+        <!--Sección mostrar ofertas destacadas-->
+        <section id="seccion-ofertas">
+            <div class="row justify-content-center">
+                <div class="col-6 text-center mt-5">
+                    <div class="carousel slide carousel-fade" id="mi-carousel" data-bs-ride="carousel">
+                        <!--Imágenes y texto-->
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <h2>Oferta 1</h2>
+                                <img class="img-fluid" src="img/4090.png" alt="">
+                            </div>
+                            <div class="carousel-item">
+                                <h2>Oferta 2</h2>
+                                <img class="img-fluid" src="img/asus-monitor.png" alt="">
+                            </div>
+                            <div class="carousel-item">
+                                <h2>Oferta 3</h2>
+                                <img class="img-fluid" src="img/auriculares.png" alt="">
+                            </div>
+                        </div>
+    
+                        <!-- Controles -->
+                        <button 
+                            class="carousel-control-prev"
+                            type="button"
+                            data-bs-target="#mi-carousel"
+                            data-bs-slide="prev"
+                        >
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Anterior</span>
+                        </button>
+    
+                        <button 
+                            class="carousel-control-next"
+                            type="button"
+                            data-bs-target="#mi-carousel"
+                            data-bs-slide="next"
+                        >
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Siguiente</span>
+                        </button>
+    
+                        <!-- Indicadores -->
+                        <div class="carousel-indicators">
+                            <button 
+                                type="button"
+                                class="active"
+                                data-bs-target="#mi-carousel"
+                                data-bs-slide-to="0"
+                                aria-label="Slide 1"
+                            ></button>
+                            <button 
+                                type="button"
+                                class=""
+                                data-bs-target="#mi-carousel"
+                                data-bs-slide-to="1"
+                                aria-label="Slide 2"
+                            ></button>
+                            <button 
+                                type="button"
+                                class=""
+                                data-bs-target="#mi-carousel"
+                                data-bs-slide-to="2"
+                                aria-label="Slide 3"
+                            ></button>
+                        </div>
+                    </div>
+            </div>
+        </section>
+        
+        <!--Sección mostrar descripción empresa-->
+        <section id="seccion-descripcion-empresa">
+            <!--Imágenes de empresa-->
+            <div class="row flex-md-row flex-column">
+                <div class="col-lg-6 col-12 flex-column justify-content-center align-items-center">
+                    <div class="d-none d-lg-block text-end">
+                        <img class="imagen-empresa" src="img/imagen-empresa.jpg" alt="">
+                    </div>
+                    <div class="text-center text-lg-end">
+                        <img class="imagen-empresa my-2" src="img/imagen-empresa-2.jpg" alt="">
+                    </div>
+                    <div class="d-none d-lg-block text-end">
+                        <img class="imagen-empresa" id="imagen-empresa-3" src="img/imagen-empresa-3.jpeg" alt="">
+                    </div>
+                </div>
+                <!--Texto descripción-->
+                <div class="col-lg-4 col-12 align-self-lg-center">
+                    <p><b>techno store es una empresa líder en el sector de la tecnología, con una amplia experiencia en la venta y distribución de productos de vanguardia. Nuestra misión es ofrecer a nuestros clientes la mejor experiencia posible, desde la selección del producto adecuado hasta la postventa.</p>
+        
+                    <p>En techno store, contamos con un equipo de profesionales altamente cualificados, que te asesorarán de forma personalizada para encontrar el producto que mejor se adapte a tus necesidades. Además, ofrecemos un servicio de postventa de calidad, con el que te garantizamos el mejor funcionamiento de tu producto.</p>
+                        
+                    <p>En techno store, estamos comprometidos con la excelencia, por eso nos esforzamos por ofrecer a nuestros clientes los mejores productos y servicios. Si estás buscando una empresa de confianza para comprar productos tecnológicos, techno store es tu mejor opción.</p>
+                        
+                    <p>Beneficios para el cliente</p>
+                    <ul>
+                        <li>Selección de productos de vanguardia</li>
+                        <li>Asesoramiento personalizado</li>
+                        <li>Servicio de postventa de calidad</li>
+                        <li>Compromiso con la excelencia</li>
+                    </ul> 
+                        
+                    <p>Si estás interesado en conocer más sobre nuestros productos o servicios, no dudes en ponerte en contacto con nosotros. Estaremos encantados de ayudarte.</b></p>
+                </div>
+            </div>
+        </section>
+    
+        <!--Sección mostrar banner de garantía-->
+        <section id="seccion-garantia">
+            <div class="row justify-content-center align-items-center">
+                <div class="col-md-6 my-5 text-center">
+                    <img src="img/banner-garantia-1.jpg" alt="">
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!--PIE DE PÁGINA-->
+    <footer>
+        <!--Titulos del contenido-->
+        <div class="row justify-content-center row-contenido-footer">
+            <!--Iconos redes sociales-->
+            <div class="text-center col-md-2">
+                <span>
+                    <img class="iconos" src="iconos/icono-instagram.png" alt="">
+                    <img class="iconos" src="iconos/icono-facebook.png" alt="">
+                    <img class="iconos" src="iconos/icono-youtube.png" alt="">
+                </span>
+            </div>
+            <!--Quienes somos-->
+            <div class="text-center d-none d-md-block col-md-2">
+                <h6>Quienes somos</h6>
+            </div>
+            <!--Contacto-->
+            <div class="text-center d-none d-md-block col-md-2">
+                <h6>Contacto</h6>
+            </div>
+            <!--Formas de pago-->
+            <div class="text-center d-none d-md-block col-md-2">
+                <h6>Formas de pago</h6>
+            </div>
+        </div>
+        <!--Desarrollo del contenido-->
+        <div class="row justify-content-center row-contenido-footer align-items-start">
+            <!--Más sobre quienes somos-->
+            <div class="text-center d-md-none">
+                <h6>Quienes somos</h6>
+            </div>
+            <div class="col-md-2 text-center offset-md-2 mt-0 col-contenido-footer mb-5">
+                <p>Somos techno store, una tienda apasionada por ofrecer la última tecnología con calidad excepcional. Explora nuestra selección y únete a la revolución tecnológica con nosotros.</p>
+            </div>
+            <!--Más sobre contacto-->
+            <div class="text-center d-md-none">
+                <h6>Contacto</h6>
+            </div>
+            <div class="col-md-2 text-center col-contenido-footer mb-5">
+                <span>technostore@gmail.com<img src="iconos/icono-mail.png" class="iconos" alt=""></span><br>
+                <span>679877340<img src="iconos/icono-whatsapp.png" class="iconos" alt="" id="telefono-contacto"></span>
+            </div>
+            <!--Más sobre formas de pago-->
+            <div class="text-center d-md-none">
+                <h6>Formas de pago</h6>
+            </div>
+            <div class="col-md-2 text-center col-contenido-footer mb-5">
+                <ul id="lista-formas-pago">
+                    <li>Tarjeta de crédito</li>
+                    <li>Paypal</li>
+                    <li>Bizum</li>
+                    <li>Transferencia bancaria</li>
+                    <li>Cómodos plazos</li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <!--Función para probar a copiar el teléfono en el portapapeles, falta mostrar por pantalla: texto copiado por ejemplo-->
+    <script>
+        let telefonoContacto = document.getElementById("telefono-contacto");
+        telefonoContacto.addEventListener("click", ()=>{
+            let contenido = telefonoContacto.previousSibling.textContent;
+            navigator.clipboard.writeText(contenido);
+            //console.log(contenido);
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,44 @@
+/*Filas pares de las tablas*/
+.fila-tabla-par{
+    background-color: burlywood;
+}
+
+/*Filas impares de las tablas*/
+.fila-tabla-impar{
+    background-color: rgb(132, 165, 222);
+}
+
+/*Formulario*/
+#formModificarUsuario, #formModificarProducto, #formAñadirProducto{
+    background-color: rgb(219, 213, 213);
+}
+
+/*div de mensaje error*/
+.invalid-feedback{
+    height: 10px;
+}
+
+/*Contenedor tablas*/
+.contenedorTablaProductos, .contenedorTablaUsuarios{
+    overflow-y: auto;
+    max-height: 600px;
+    position: relative;
+}
+
+/*Tablas*/
+.tablaProductos, .tablaUsuarios{
+    border-collapse: collapse;
+    width: 100%;
+}
+
+/*Cabecera de las tablas*/
+thead th{
+    position: sticky;
+    top: 0;
+    background-color: rgb(219, 213, 213) !important;
+}
+
+thead{
+    background-color: rgb(219, 213, 213) !important;
+}
+

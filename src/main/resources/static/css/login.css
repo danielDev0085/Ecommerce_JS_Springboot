@@ -1,0 +1,55 @@
+/* Alerta login guardar datos en cookies */
+#alertaSaveDatosLogin {
+    display: none;
+}
+/*Cuerpo de la carta*/
+.card-body{
+    font-weight: 600;
+}
+
+/*Botón cerrar*/
+.close-button {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: grey;
+    background-color: transparent; 
+    border: none; 
+    cursor: pointer;
+  }
+
+/*Botones de redes del login*/
+.contenedor-login .btn-facebook{
+    background-color: rgb(4, 51, 122);
+}
+
+.contenedor-login .btn-twitter{
+    background-color: rgb(87, 87, 231);
+}
+
+.contenedor-login .btn-google{
+    background-color: rgb(222, 49, 49);
+}
+
+.enlaces-redes a{
+    margin-right: 20px;
+    color:white
+}
+
+.enlaces-redes a,
+.card-body .btn-login:hover{
+    opacity: .9;
+}
+
+/*Enlaces del pié de la card*/
+.contenedor-login .card-footer a{
+    text-decoration: none;
+    color:black;
+    margin-right: 20px;
+}
+
+.contenedor-login .card-footer a:hover{
+    color:rgb(70, 70, 236)
+}
+
+
+
